@@ -32,5 +32,29 @@ angular.module('frontendApp')
         console.log('save card', $scope.flashCard);
         backendService.saveCard($scope.flashCard);
       };
+
+      var delay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+          clearTimeout(timer);
+          timer = setTimeout(callback, ms);
+        };
+      })();
+
+      $scope.getTranslation = function () {
+        delay(function () {
+
+          console.log('get translation', $scope.flashCard.sourceWord);
+          backendService.getTranslation($scope.flashCard.sourceWord).then(function (result) {
+            var translation = result.data.data.translations[0].translatedText;
+            $scope.flashCard.destWord = translation;
+            $scope.imageToSearch = translation;
+            $scope.searchImages();
+            console.log(result);
+          });
+        }, 500);
+
+
+      };
     }
   ]);

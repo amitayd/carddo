@@ -18,6 +18,12 @@ angular.module('frontendApp')
           return $http.get(url);
         },
 
+        getTranslation: function (word) {
+          console.log('getting translation');
+          var url = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyAXMld2oSJ2qvi1pub8LAgC2-LCjd_VEis&target=en&source=es&dataType=jsonp&q=' + word + '&callback=JSON_CALLBACK'
+          return $http.jsonp(url);
+        },
+
         saveCard: function (flashCard) {
           var url = host + 'flashcard';
           return $http.post(url, flashCard);
@@ -34,20 +40,17 @@ angular.module('frontendApp')
         },
 
         getImages: function getImagesPromise(word, cb) {
-          var deferred = $q.defer();
 
           var searchComplete = function () {
             cb(imageSearch.results);
           };
 
           imageSearch.setSearchCompleteCallback(this, searchComplete, null);
+          // imageSearch.setRestriction(
+          //   google.search.ImageSearch.RESTRICT_IMAGESIZE,
+          //   google.search.ImageSearch.IMAGESIZE_SMALL);
           imageSearch.setResultSetSize(8);
           imageSearch.execute(word);
-
-
-
-          return deferred.promise;
-
         }
 
       };
