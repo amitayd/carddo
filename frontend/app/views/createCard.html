@@ -1,0 +1,16 @@
+<div>
+  Source word: <input type=text value="{{flashCard.sourceWord}}"></input>
+  Dest Word: <input type=text value="{{flashCard.destWord}}"></input>
+  
+  <img src="{{flashCard.associationImageUrl}}"></img>
+  <div>
+  Association text:<input type=text value="{{flashCard.associationText}}"></input>
+  </div>
+
+  Image:<input type="text" ng-model="imageToSearch"> <button ng-click="searchImages()">Search Image</button>
+
+  <div ng-repeat="image in images">
+      <img src="{{image.url}}" style="width:100px; height:100px" ng-click="setImage(image.url)"></img>
+  </div>
+
+</div>
