@@ -37,5 +37,19 @@ class Flashcard(Base):
 def init_db():
     Base.metadata.create_all(bind=engine)
 
+def _flashcard_row2dict(row):
+    return {
+                    'sourceWord': row.source_word,
+                    'destWord': row.dest_word,
+                    'associationImageUrl': row.association_image_url,
+                    'associationText': row.association_text
+            }
+def flashcard_row2dict_with_none_check(row):
+    if row is None:
+        return {}
+    else:
+        return _flashcard_row2dict(row)
+
+
 if __name__ == '__main__':
     init_db()

@@ -4,57 +4,62 @@ from flask import Flask, request, abort, Response
 
 from flask_crossdomain import crossdomain
 
-from database import db_session, Flashcard
+from database import db_session, Flashcard, flashcard_row2dict_with_none_check
 
 app = Flask(__name__)
+
+def return_200_json_from_dict(data):
+    js = json.dumps(data)
+    resp = Response(js, status=200, mimetype='application/json')
+    return resp
 
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
 
-@app.route('/flashcard/random', methods=['GET', 'POST', 'OPTIONS'])
-@crossdomain(origin='*', methods=['GET', 'POST'], attach_to_all=True)
+@app.route('/flashcard/word/<source_word>')
+@crossdomain(origin='*', methods=['GET'], attach_to_all=True)
+def get_flashcard(source_word):
+    fc = Flashcard.query.filter(Flashcard.source_word == source_word).first()
+    fc_dict = flashcard_row2dict_with_none_check(fc)
+    return return_200_json_from_dict(fc_dict)
+
+@app.route('/flashcard/random')
+@crossdomain(origin='*', methods=['GET'], attach_to_all=True)
 def random_flashcard():
+    fc = Flashcard.get_random_flashcard()
+    fc_dict = flashcard_row2dict_with_none_check(fc)
+    return return_200_json_from_dict(fc_dict)
+
+@app.route('/flashcard/all', methods=['GET'])
+@crossdomain(origin='*', methods=['GET'], attach_to_all=True)
+def all_flashcard():
+    fcs = Flashcard.query.all()
+    fcs_dicts = ([flashcard_row2dict(fc) for fc in fcs])
+    return return_200_json_from_dict(fcs_dicts)
+
+@app.route('/flashcard', methods=['POST'])
+@crossdomain(origin='*', methods=['POST'], attach_to_all=True)
+def create_or_update_flashcard():
     
-    if request.method == 'GET':
-        fc = Flashcard.get_random_flashcard()
-         
-        if fc is None:
-            data = {}
-        else:
+    fc = Flashcard.query.filter(Flashcard.source_word == request.json['sourceWord']).first()
 
-            data = {
-                    'sourceWord': fc.source_word,
-                    'destWord': fc.dest_word,
-                    'associationImageUrl': fc.association_image_url,
-                    'associationText': fc.association_text
-            }
-
-        js = json.dumps(data)
-
-        resp = Response(js, status=200, mimetype='application/json')
-        
-        return resp
-
-    elif request.method == 'POST':
-
-        #if 'application/json' in request.headers['Content-Type']:
-        #    abort(415)
-
-
-        fc = Flashcard(source_word=request.json['sourceWord'],
+    if fc is None:
+        new_fc = Flashcard(source_word=request.json['sourceWord'],
                        dest_word=request.json['destWord'],
                        association_image_url=request.json['associationImageUrl'],
                        association_text=request.json['associationText'])
 
-        db_session.add(fc)
-        db_session.commit()
+        db_session.merge(new_fc)
 
-        js = json.dumps(request.json)
+    else:
+       fc.dest_word = request.json['destWord']
+       fc.association_image_url = request.json['associationImageUrl']
+       fc.association_text = request.json['associationText']
 
-        resp = Response(js, status=200, mimetype='application/json')
-       
-        return resp
+    db_session.commit()
+
+    return return_200_json_from_dict(request.json)
 
 if __name__ == '__main__':
     app.debug = True
