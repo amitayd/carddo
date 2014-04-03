@@ -12,15 +12,25 @@ angular.module('frontendApp')
 
       // Public API here
       return {
-        getRandom: function () {
+        getRandomCard: function () {
           console.log('getting random');
           var url = host + 'flashcard/random';
           return $http.get(url);
         },
 
         saveCard: function (flashCard) {
-          var url = host + 'flashcard/random';
+          var url = host + 'flashcard';
           return $http.post(url, flashCard);
+        },
+
+        getAllCards: function () {
+          var url = host + 'flashcard/all';
+          return $http.get(url);
+        },
+
+        getCardBySourceWord: function (source_world) {
+          var url = host + 'flashcard/word/' + source_world;
+          return $http.get(url);
         },
 
         getImages: function getImagesPromise(word, cb) {
