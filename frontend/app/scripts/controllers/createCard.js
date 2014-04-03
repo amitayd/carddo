@@ -23,9 +23,14 @@ angular.module('frontendApp')
         });
       };
 
-      $scope.setImage = function(url) {
+      $scope.setImage = function (url) {
         console.log('set image', url);
         $scope.flashCard.associationImageUrl = url;
+      };
+
+      $scope.saveCard = function () {
+        console.log('save card', $scope.flashCard);
+        backendService.saveCard($scope.flashCard);
       };
     }
   ]);

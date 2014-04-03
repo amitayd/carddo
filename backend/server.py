@@ -2,6 +2,8 @@ import json
 
 from flask import Flask, request, abort, Response
 
+from flask_crossdomain import crossdomain
+
 from database import db_session, Flashcard
 
 app = Flask(__name__)
@@ -10,7 +12,8 @@ app = Flask(__name__)
 def shutdown_session(exception=None):
     db_session.remove()
 
-@app.route('/flashcard/random', methods=['GET', 'POST'])
+@app.route('/flashcard/random', methods=['GET', 'POST', 'OPTIONS'])
+@crossdomain(origin='*', methods=['GET', 'POST'], attach_to_all=True)
 def random_flashcard():
     
     if request.method == 'GET':
@@ -35,8 +38,8 @@ def random_flashcard():
 
     elif request.method == 'POST':
 
-        if request.headers['Content-Type'] != 'application/json':
-            abort(415)
+        #if 'application/json' in request.headers['Content-Type']:
+        #    abort(415)
 
 
         fc = Flashcard(source_word=request.json['sourceWord'],
@@ -47,7 +50,11 @@ def random_flashcard():
         db_session.add(fc)
         db_session.commit()
 
-        return json.dumps(request.json)
+        js = json.dumps(request.json)
+
+        resp = Response(js, status=200, mimetype='application/json')
+       
+        return resp
 
 if __name__ == '__main__':
     app.debug = True
