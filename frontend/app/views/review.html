@@ -1,10 +1,13 @@
-<div>
+<div ng-swipe-right="back()" ng-swipe-left="forward()">
   <h1>{{flashCard.sourceWord}}</h1>
   
-  <img src="{{flashCard.associationImageUrl}}"></img>
+  <img style="width:50px;height:50px;" src="{{flashCard.associationImageUrl}}"></img>
   <p>{{flashCard.associationText}}</p>
 
   <h1>{{flashCard.destWord}}</h1>
   
-  
+
+  <button ng-click="forward()">forward</button>
+  <button ng-click="back()">backward</button>
+  <a ng-href="#/create/{{flashCard.sourceWord}}"><button>Edit</button></a>
 </div>

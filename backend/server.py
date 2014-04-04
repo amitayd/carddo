@@ -36,7 +36,7 @@ def random_flashcard():
 @crossdomain(origin='*', methods=['GET'], attach_to_all=True)
 def all_flashcard():
     fcs = Flashcard.query.all()
-    fcs_dicts = ([flashcard_row2dict(fc) for fc in fcs])
+    fcs_dicts = ([flashcard_row2dict_with_none_check(fc) for fc in fcs])
     return return_200_json_from_dict(fcs_dicts)
 
 @app.route('/flashcard', methods=['POST'])

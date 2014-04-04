@@ -1,13 +1,15 @@
-<div>
+<div ng-swipe-right="back()" ng-swipe-left="forward()">
   Source word: <input type=text ng-model="flashCard.sourceWord" ng-change="getTranslation()"></input>
   Dest Word: <input type=text ng-model="flashCard.destWord"></input>
   
-  <img src="{{flashCard.associationImageUrl}}"></img>
+  Image url:<input type=text ng-model="flashCard.associationImageUrl"></input>
+  <img style="width:100px; height:100px" src="{{flashCard.associationImageUrl}}"></img>
   <div>
   Association text:<input type=text ng-model="flashCard.associationText"></input>
   </div>
 
   <button ng-click="saveCard()">Save Card</button>
+  <button ng-click="newCard()">New Card</button>
 
   Image:<input type="text" ng-model="imageToSearch"> <button ng-click="searchImages()">Search Image</button>
 

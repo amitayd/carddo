@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('frontendApp', [])
+angular.module('frontendApp', ['ngRoute', 'ngTouch'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -11,10 +11,14 @@ angular.module('frontendApp', [])
         templateUrl: 'views/review.html',
         controller: 'ReviewCtrl'
       })
-      .when('/create', {
+      .when('/create/:sourceWord', {
         templateUrl: 'views/createCard.html',
         controller: 'CreateCard'
       })      
+      .when('/create', {
+        templateUrl: 'views/createCard.html',
+        controller: 'CreateCard'
+      })
       .otherwise({
         redirectTo: '/'
       });
