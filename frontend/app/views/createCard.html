@@ -1,9 +1,16 @@
 <div ng-swipe-right="back()" ng-swipe-left="forward()">
-  Source word: <input type=text ng-model="flashCard.sourceWord" ng-change="getTranslation()"></input>
-  Dest Word: <input type=text ng-model="flashCard.destWord"></input>
-  
+  <div>
+  Source word: <input type=text ng-model="flashCard.sourceWord" ng-change="getTranslation()" ng-disabled="!flashCard.isNew"></input>
+</div>
+<div>
+  Dest Word: <input type=text ng-model="flashCard.destWord" ng-disabled="!flashCard.isNew"></input>
+</div>
+<div>
   Image url:<input type=text ng-model="flashCard.associationImageUrl"></input>
+</div>
+<div>
   <img style="width:100px; height:100px" src="{{flashCard.associationImageUrl}}"></img>
+</div>
   <div>
   Association text:<input type=text ng-model="flashCard.associationText"></input>
   </div>
@@ -11,12 +18,21 @@
   <button ng-click="saveCard()">Save Card</button>
   <button ng-click="newCard()">New Card</button>
 
+  <div>
+
   Image:<input type="text" ng-model="imageToSearch"> <button ng-click="searchImages()">Search Image</button>
 
-  <div ng-repeat="image in images">
-      <img src="{{image.url}}" style="width:100px; height:100px" ng-click="setImage(image.url)"></img>
+  <div>
+  Suggestions:<div ng-repeat="suggestedWord in suggestedWords">
+      <span ng-style="suggestedWord == imageToSearch && {'font-weight':'bold'}" ng-click="selectSuggestion(suggestedWord)">{{suggestedWord}}</span>
+  </div>
   </div>
 
+  <div ng-repeat="image in images">
+      <img src="{{image.tbUrl}}" ng-click="setImage(image.tbUrl)"></img>
+  </div>
+
+</div>
 
 
 </div>

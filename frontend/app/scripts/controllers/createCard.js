@@ -71,6 +71,10 @@ angular.module('frontendApp')
               $scope.imageToSearch = translation;
               $scope.searchImages();
               console.log(result);
+              backendService.getWordSuggestion($scope.flashCard.sourceWord).then(function (result) {
+                console.log('suggestions', result.data);
+                $scope.suggestedWords = result.data;
+              });
             });
           }, 800);
         };
@@ -78,6 +82,9 @@ angular.module('frontendApp')
         var changeCard = function (index) {
           console.log(index);
           $scope.index = index;
+          $scope.suggestedWords = [];
+          $scope.imageToSearch = '';
+          $scope.images = [];
           $scope.flashCard = result.data[index];
         };
 
@@ -89,6 +96,11 @@ angular.module('frontendApp')
         $scope.forward = function () {
           var index = Math.min($scope.flashCards.length - 1, $scope.index + 1);
           changeCard(index);
+        };
+
+        $scope.selectSuggestion = function (word) {
+          $scope.imageToSearch = word;
+          $scope.searchImages();
         };
 
         $scope.newCard = function () {

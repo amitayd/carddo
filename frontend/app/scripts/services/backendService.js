@@ -34,9 +34,16 @@ angular.module('frontendApp')
           return $http.get(url);
         },
 
-        getCardBySourceWord: function (source_world) {
-          var url = host + 'flashcard/word/' + source_world;
+        getCardBySourceWord: function (sourceWord) {
+          var url = host + 'flashcard/word/' + sourceWord;
           return $http.get(url);
+        },
+
+        getWordSuggestion: function(word) {
+          console.log('get word suggestions', word);
+          var url = host + 'suggest/' + word;
+          return $http.get(url);
+
         },
 
         getImages: function getImagesPromise(word, cb) {
