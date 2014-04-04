@@ -1,9 +1,9 @@
 <div ng-swipe-right="back()" ng-swipe-left="forward()">
   <div>
-  Source word: <input type=text ng-model="flashCard.sourceWord" ng-change="getTranslation()" ng-disabled="!flashCard.isNew"></input>
+  Source word: <input type=text ng-model="flashCard.sourceWord" ng-change="getTranslation(false)" ng-disabled="!flashCard.isNew"></input>
 </div>
 <div>
-  Dest Word: <input type=text ng-model="flashCard.destWord" ng-disabled="!flashCard.isNew"></input>
+  Dest Word: <input type=text ng-model="flashCard.destWord" ng-change="getTranslation(true)" ng-disabled="!flashCard.isNew"></input>
 </div>
 <div>
   Image url:<input type=text ng-model="flashCard.associationImageUrl"></input>

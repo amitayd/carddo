@@ -18,9 +18,9 @@ angular.module('frontendApp')
           return $http.get(url);
         },
 
-        getTranslation: function (word) {
-          console.log('getting translation');
-          var url = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyAXMld2oSJ2qvi1pub8LAgC2-LCjd_VEis&target=en&source=es&dataType=jsonp&q=' + word + '&callback=JSON_CALLBACK'
+        getTranslation: function (word, source, target) {
+          var url = 'https://www.googleapis.com/language/translate/v2?key=AIzaSyAXMld2oSJ2qvi1pub8LAgC2-LCjd_VEis&target=' + target + '&source=' + source + '&dataType=jsonp&q=' + word + '&callback=JSON_CALLBACK'
+          console.log('getting translation', url);
           return $http.jsonp(url);
         },
 

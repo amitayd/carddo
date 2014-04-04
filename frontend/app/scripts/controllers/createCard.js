@@ -61,13 +61,21 @@ angular.module('frontendApp')
           };
         })();
 
-        $scope.getTranslation = function () {
+        $scope.getTranslation = function (isReverse) {
           delay(function () {
+            var sourceWord = isReverse ? $scope.flashCard.destWord: $scope.flashCard.sourceWord;
+            var sourceLang = isReverse ? 'en' : 'es';
+            var destLang = isReverse ? 'es' : 'en';
 
-            console.log('get translation', $scope.flashCard.sourceWord);
-            backendService.getTranslation($scope.flashCard.sourceWord).then(function (result) {
+            console.log('get translation', sourceWord);
+            backendService.getTranslation(sourceWord, sourceLang, destLang).then(function (result) {
               var translation = result.data.data.translations[0].translatedText;
-              $scope.flashCard.destWord = translation;
+              console.log('get translation', translation);
+              if (isReverse) {
+                $scope.flashCard.sourceWord = translation;
+              } else {
+                $scope.flashCard.destWord = translation;
+              }
               $scope.imageToSearch = translation;
               $scope.searchImages();
               console.log(result);
