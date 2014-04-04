@@ -5,6 +5,7 @@ from flask import Flask, request, abort, Response
 from flask_crossdomain import crossdomain
 
 from database import db_session, Flashcard, flashcard_row2dict_with_none_check
+from suggestions import suggest_similar_phonetic_words
 
 app = Flask(__name__)
 
@@ -60,6 +61,12 @@ def create_or_update_flashcard():
     db_session.commit()
 
     return return_200_json_from_dict(request.json)
+
+@app.route('/suggest/<word>', methods=['GET'])
+@crossdomain(origin='*', methods=['GET'], attach_to_all=True)
+def suggeset_similar_words(word):
+    suggested_words = suggest_similar_phonetic_words(word)
+    return return_200_json_from_dict(suggested_words)
 
 if __name__ == '__main__':
     app.debug = True
