@@ -1,9 +1,9 @@
-CardDo - Mindcet Hackaton 2014
+CardDo - Mindcet Hackathon 2014
 ========================
 
 Web application for learning foreign language vocabulary by creating word associations flash cards.
 
-Not completed (yet?) - created in 24 hours during Mindcet EduTech hackaton.
+Not completed (yet?) - created in 24 hours during Mindcet EduTech hackathon.
 
 ###credits###
 Miriam Blumenthal
