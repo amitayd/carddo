@@ -6,12 +6,12 @@ Web application for learning foreign language vocabulary by creating word associ
 Not completed (yet?) - created in 24 hours during Mindcet EduTech hackathon.
 
 ###credits###
-Miriam Blumenthal
-Tal Blumenthal
-Amitay Dobo
-Shlomi Hod
-Dafna Levy
-Daniel Sher
+* Miriam Blumenthal
+* Tal Blumenthal
+* Amitay Dobo
+* Shlomi Hod
+* Dafna Levy
+* Daniel Sher
 
 ###installation and running###
 
