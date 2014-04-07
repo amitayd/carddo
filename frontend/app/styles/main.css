@@ -1,1 +1,186 @@
 /* Will be compiled down to a single stylesheet with your sass files */
+
+@font-face {
+    font-family: 'hand_of_sean_demoregular';
+    src: url('../fonts/hand_of_sean_demo-webfont.eot');
+    src: url('../fonts/hand_of_sean_demo-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/hand_of_sean_demo-webfont.woff') format('woff'),
+         url('../fonts/hand_of_sean_demo-webfont.ttf') format('truetype'),
+         url('../fonts/hand_of_sean_demo-webfont.svg#hand_of_sean_demoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html{
+  overflow: hidden;
+}
+
+*:focus {
+    outline: 0;
+}
+
+body{
+  font-family: 'hand_of_sean_demoregular';
+}
+
+
+
+
+.all-wrap{
+  background-color: #3b3f48;
+}
+
+.related-images-wrap , .buttons-wrap{
+  background-color: #495060;
+}
+
+.related-images-wrap{
+  display: inline-block;
+max-height: 450px;
+overflow-y: scroll;
+min-height: 310px;
+}
+
+.related-image-wrap {
+  background-color: #fff;
+  padding: 8px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+
+.related-image-wrap.last{
+  margin-bottom: 10px;
+}
+
+.main-view-wrap{
+  background-color: #f8ecc6;
+  padding: 26px;
+  border-radius: 6px;
+  margin-top: 40px;
+}
+
+.main-word-input , .reminded-word-input{
+  border: 2px dashed #000;
+  border-radius: 22px;
+  font-size: 3vw;
+  text-align: center;
+}
+
+.reminded-word-input{
+  margin-top: 12px;
+}
+
+.suggested-words-input{
+  background-color: #fdf4bb;
+  border: 1px solid #000;
+border-radius: 6px;
+color: #b73114;
+text-align: center;
+margin-top: 12px;
+margin-bottom: 12px;
+
+}
+
+.suggested-words-input span{
+  font-size: 22px;
+  padding-bottom: 4px;
+}
+
+.main-view{
+  background-color: #fff;
+  border-radius: 12px;
+  min-height: 310px;
+}
+
+.buttons-wrap{
+  position: relative;
+  min-height: 310px;
+}
+
+.action-button{
+   -webkit-appearance: none;
+background: none;
+border: none;
+width: 59px; 
+}
+
+.action-button.publish{
+  background: url( ../images/globe.png ) no-repeat;
+  background-size: cover;
+  height: 58px;
+}
+
+.action-button.save{
+  background: url( ../images/save-disk.png ) no-repeat;
+  background-size: cover;
+  height: 59px;
+}
+
+.action-button.new{
+  background: url( ../images/plus-new.png ) no-repeat;
+  background-size: cover;
+  height: 67px;
+}
+
+.button-lable{
+  color: #fff;
+}
+
+.button-lable.dark{
+  color: #000;
+  text-align: center;
+}
+
+.inner-actions-button{
+  max-width: 80px;
+  margin-top: 12px;
+}
+
+.action-title, .search-for-images-input{
+  background-color: #9499a1;
+  border-radius: 10px;
+text-align: center;
+padding: 2px 0;
+margin-top: 40px;
+margin-bottom: 12px;
+}
+
+.search-for-images-input{
+  -webkit-appearance: none;
+  border: none;
+  width: 100%;
+  position: relative;
+  padding-right: 29px;
+padding-left: 14px;
+}
+
+.search-for-images-input:after{
+  content: 'sds';
+}
+
+.search-for-images-input::-webkit-input-placeholder{
+  color: #000;
+}
+
+.search-button{
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  display: inline-block;
+  position: absolute;
+top: 42px;
+right: 15px;
+color: #000;
+}
+
+.picture-description{
+
+  border-radius: 8px;
+  background: #fdf4bb;
+  border: 1px dashed #000;
+  width: 100%;
+text-align: center;
+font-size: 18px;
+
+}

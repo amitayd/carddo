@@ -1,38 +1,89 @@
-<div ng-swipe-right="back()" ng-swipe-left="forward()">
-  <div>
-  Source word: <input type=text ng-model="flashCard.sourceWord" ng-change="getTranslation(false)" ng-disabled="!flashCard.isNew"></input>
-</div>
-<div>
-  Dest Word: <input type=text ng-model="flashCard.destWord" ng-change="getTranslation(true)" ng-disabled="!flashCard.isNew"></input>
-</div>
-<div>
-  Image url:<input type=text ng-model="flashCard.associationImageUrl"></input>
-</div>
-<div>
-  <img style="width:100px; height:100px" src="{{flashCard.associationImageUrl}}"></img>
-</div>
-  <div>
-  Association text:<input type=text ng-model="flashCard.associationText"></input>
-  </div>
+<div class="row"  ng-swipe-right="back()" ng-swipe-left="forward()">
+    <!-- Start Images View -->
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 related-images-wrap">
+        <input class="search-for-images-input" placeholder="Search for images" type="text" ng-model="imageToSearch">
+        <button class="search-button" ng-click="searchImages()"><i class="fa fa-search"></i></button>
+        <div ng-repeat="image in images" class="related-image-wrap last">
+            <img class="img-responsive" src="{{image.tbUrl}}" ng-click="setImage(image.url)"/>
+        </div> 
 
-  <button ng-click="saveCard()">Save Card</button>
-  <button ng-click="newCard()">New Card</button>
+    </div>
 
-  <div>
-
-  Image:<input type="text" ng-model="imageToSearch"> <button ng-click="searchImages()">Search Image</button>
-
-  <div>
-  Suggestions:<div ng-repeat="suggestedWord in suggestedWords">
-      <span ng-style="suggestedWord == imageToSearch && {'font-weight':'bold'}" ng-click="selectSuggestion(suggestedWord)">{{suggestedWord}}</span>
-  </div>
-  </div>
-
-  <div ng-repeat="image in images">
-      <img src="{{image.tbUrl}}" ng-click="setImage(image.tbUrl)"></img>
-  </div>
-
-</div>
-
-
+    <!-- End Images View -->
+    <!-- Start Main View -->
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 main-view-wrap">
+        <div class="row center-block">
+            <div class="col-lg-12 col-md-12 col-sm-8 col-xs-8">
+                <input class="center-block main-word-input" type=text  ng-change="getTranslation(false)" ng-disabled="!flashCard.isNew" ng-model="flashCard.sourceWord"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-xs-6 col-lg-offset-3 col-xs-offset-3">
+                <div class="center-block suggested-words-input" type=text>
+                    <span  ng-repeat="suggestedWord in suggestedWords" ng-style="suggestedWord == imageToSearch && {'font-weight':'bold'}" ng-click="selectSuggestion(suggestedWord)">{{suggestedWord}}&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-xs-12">
+                <div class="main-view">
+                    <div class="row inner-actions-buttons-wrap">
+                        <div class="col-lg-4 col-xs-4">
+                            <img class="img-responsive center-block inner-actions-button" src="images/text-btn.png"/>
+                            <div class="button-lable dark"><p>Add Text</p></div>
+                        </div>
+                        <div class="col-lg-4 col-xs-4">
+                            <img class="img-responsive center-block inner-actions-button" src="images/draw-btn.png"/>
+                            <div class="button-lable dark"><p>Draw</p></div>
+                        </div>
+                        <div class="col-lg-4 col-xs-4">
+                            <img class="img-responsive center-block inner-actions-button" src="images/upload-btn.png"/>
+                            <div class="button-lable dark"><p>Upload</p></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-12">
+                             <img class="img-responsive center-block" src="{{flashCard.associationImageUrl}}"/>
+                        </div>
+                        <input type="text" class="center-block picture-description" ng-model="flashCard.associationText" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-lg-12 col-xs-12">
+                    <input class="center-block reminded-word-input" type=text  ng-model="flashCard.destWord" ng-change="getTranslation(true)" ng-disabled="!flashCard.isNew"></input>
+                </div>
+            </div>
+        </div>
+    
+    <!-- End Main View -->
+    <!-- Start Extra Buttons -->
+    <div class="col-lg-2 col-xs-2 buttons-wrap">
+        <div class="action-title"><p>Suggested Images</p></div>
+<!--         <div ng-repeat="image in images" class="related-image-wrap">
+            <img class="img-responsive" src="http://placehold.it/350x260" ng-click="setImage(image.url)"/>
+        </div>
+        <div ng-repeat="image in images" class="related-image-wrap">
+            <img class="img-responsive" src="http://placehold.it/350x260" ng-click="setImage(image.url)"/>
+        </div>
+        <div ng-repeat="image in images" class="related-image-wrap last">
+            <img class="img-responsive" src="http://placehold.it/350x260" ng-click="setImage(image.url)"/>
+        </div> -->
+        <div class="row">      
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <button class="action-button save"  ng-click="saveCard()"></button>
+                <div class="button-lable"><p>Save</p></div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <button ng-click="newCard()" class="action-button new"></button>
+                <div class="button-lable"><p>New</p></div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-xs-12">
+                <button class="action-button publish" id="publish"></button>
+                <div class="button-lable"><p>Publish</p></div>
+            </div>
+        </div>
+    </div>
+    <!-- End Extra Button -->
 </div>
